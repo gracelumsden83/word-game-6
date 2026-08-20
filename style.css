@@ -1,106 +1,375 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background: #f4f0ff;
     margin: 0;
     min-height: 100vh;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f3efff,
+            #faf8ff,
+            #eee9ff
+        );
 
     display: flex;
     justify-content: center;
     align-items: center;
+
+    padding: 30px;
 }
 
-.game-container {
+.game-card {
+    width: 100%;
+    max-width: 900px;
+
     background: white;
-    width: 90%;
-    max-width: 600px;
-    padding: 40px;
-    border-radius: 20px;
+
+    border-radius: 28px;
+
+    padding: 45px;
+
     text-align: center;
 
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    box-shadow:
+        0 20px 60px rgba(70, 50, 160, 0.15);
 }
 
 h1 {
-    font-size: 42px;
-    margin-bottom: 10px;
+    margin: 0;
+
+    font-size: 48px;
+
+    color: #5437e8;
+
+    letter-spacing: 2px;
 }
 
 .instructions {
-    color: #666;
-    line-height: 1.5;
+    margin-top: 15px;
+
+    color: #333;
+
+    font-size: 18px;
+
+    line-height: 1.6;
 }
 
-#level {
+#level-display {
+    display: inline-block;
+
+    margin-top: 15px;
+
+    padding: 12px 35px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #6546ed,
+            #5133dc
+        );
+
+    color: white;
+
+    border-radius: 30px;
+
+    font-size: 17px;
+
     font-weight: bold;
-    margin: 25px;
+
+    letter-spacing: 1px;
 }
 
 #word-boxes {
     display: flex;
+
     justify-content: center;
-    gap: 8px;
-    margin: 30px 0;
+
+    gap: 12px;
+
+    margin: 30px 0 20px;
 }
 
 .word-box {
-    width: 50px;
-    height: 55px;
+    width: 68px;
+    height: 75px;
 
-    border: 3px solid #8b6cff;
-    border-radius: 10px;
+    border: 2px solid #6045e9;
 
-    font-size: 30px;
-    font-weight: bold;
+    border-radius: 12px;
+
+    background: white;
 
     display: flex;
+
     justify-content: center;
     align-items: center;
+
+    font-size: 34px;
+
+    font-weight: bold;
+
+    color: #222;
+}
+
+.word-box.carried {
+    background: #2f78ed;
+
+    border-color: #2f78ed;
+
+    color: white;
+}
+
+#locked-message {
+    max-width: 600px;
+
+    margin: 0 auto 25px;
+
+    padding: 13px 20px;
+
+    border: 1px solid #a9c9ff;
+
+    border-radius: 10px;
+
+    background: #f3f8ff;
+
+    color: #2256b8;
+
+    font-size: 16px;
 }
 
 #letter-bank {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px;
+    max-width: 720px;
 
-    margin: 25px 0;
+    margin: 0 auto;
+
+    padding: 25px;
+
+    background: #fafafa;
+
+    border: 1px solid #ddd;
+
+    border-radius: 15px;
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+    gap: 14px;
 }
 
-.letter {
-    width: 50px;
-    height: 50px;
+.letter-button {
+    width: 62px;
+    height: 62px;
 
-    border: none;
+    border: 1px solid #ddd;
+
     border-radius: 10px;
 
-    background: #8b6cff;
+    background: white;
+
+    font-size: 23px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 4px 8px rgba(0, 0, 0, 0.08);
+
+    transition: 0.15s;
+}
+
+.letter-button:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 7px 12px rgba(0, 0, 0, 0.12);
+}
+
+/*
+BLUE = letter carried over
+from the previous word
+*/
+
+.letter-button.carried-letter {
+    background: #2f78ed;
+
+    border-color: #2f78ed;
+
+    color: white;
+}
+
+.letter-button.selected {
+    opacity: 0.3;
+
+    transform: scale(0.92);
+
+    cursor: default;
+}
+
+.buttons {
+    margin-top: 25px;
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 15px;
+}
+
+#submit-button {
+    min-width: 220px;
+
+    padding: 15px 28px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #6546ed,
+            #5434df
+        );
+
     color: white;
 
-    font-size: 22px;
+    font-size: 17px;
+
     font-weight: bold;
 
     cursor: pointer;
 }
 
-.letter:hover {
-    transform: scale(1.08);
-}
-
-.letter:disabled {
-    opacity: 0.4;
-    cursor: default;
+#submit-button:hover {
+    transform: translateY(-2px);
 }
 
 #clear-button {
-    padding: 10px 25px;
-    border: none;
+    min-width: 130px;
+
+    padding: 15px 28px;
+
+    background: white;
+
+    border: 1px solid #777;
+
     border-radius: 10px;
 
-    font-size: 16px;
+    font-size: 17px;
+
+    font-weight: bold;
+
     cursor: pointer;
 }
 
 #message {
-    min-height: 25px;
+    min-height: 35px;
+
+    margin: 20px 0;
+
+    font-size: 20px;
+
     font-weight: bold;
+}
+
+.correct {
+    color: #168346;
+}
+
+.incorrect {
+    color: #d53c3c;
+}
+
+.how-to-play {
+    margin-top: 15px;
+
+    padding: 22px 25px;
+
+    background: #f8f5ff;
+
+    border: 1px solid #d7ccff;
+
+    border-radius: 15px;
+
+    text-align: left;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 25px;
+}
+
+.how-to-play h3 {
+    margin-top: 0;
+
+    color: #4931c9;
+}
+
+.how-to-play p {
+    margin: 8px 0;
+
+    color: #444;
+}
+
+#restart-button {
+    flex-shrink: 0;
+
+    padding: 13px 20px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background: #6042df;
+
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+@media (max-width: 650px) {
+
+    .game-card {
+        padding: 25px 15px;
+    }
+
+    h1 {
+        font-size: 34px;
+    }
+
+    .word-box {
+        width: 45px;
+        height: 55px;
+
+        font-size: 25px;
+    }
+
+    .letter-button {
+        width: 50px;
+        height: 50px;
+    }
+
+    .how-to-play {
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+    #restart-button {
+        width: 100%;
+    }
 }
