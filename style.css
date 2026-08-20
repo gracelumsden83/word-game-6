@@ -1,1 +1,106 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f0ff;
+    margin: 0;
+    min-height: 100vh;
 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-container {
+    background: white;
+    width: 90%;
+    max-width: 600px;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+h1 {
+    font-size: 42px;
+    margin-bottom: 10px;
+}
+
+.instructions {
+    color: #666;
+    line-height: 1.5;
+}
+
+#level {
+    font-weight: bold;
+    margin: 25px;
+}
+
+#word-boxes {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 30px 0;
+}
+
+.word-box {
+    width: 50px;
+    height: 55px;
+
+    border: 3px solid #8b6cff;
+    border-radius: 10px;
+
+    font-size: 30px;
+    font-weight: bold;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#letter-bank {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    margin: 25px 0;
+}
+
+.letter {
+    width: 50px;
+    height: 50px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: #8b6cff;
+    color: white;
+
+    font-size: 22px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.letter:hover {
+    transform: scale(1.08);
+}
+
+.letter:disabled {
+    opacity: 0.4;
+    cursor: default;
+}
+
+#clear-button {
+    padding: 10px 25px;
+    border: none;
+    border-radius: 10px;
+
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#message {
+    min-height: 25px;
+    font-weight: bold;
+}
