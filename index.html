@@ -1,42 +1,288 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Word Ladder</title>
+<title>Word Ladder</title>
 
-    <link rel="stylesheet" href="style.css">
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg, #f2edff, #ffffff, #eee9ff);
+    padding: 30px 15px;
+}
+
+.game {
+    width: 100%;
+    max-width: 950px;
+    margin: auto;
+    background: white;
+    border-radius: 30px;
+    padding: 45px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(70, 50, 150, 0.15);
+}
+
+h1 {
+    margin: 0;
+    font-size: 55px;
+    color: #573bea;
+}
+
+.instructions {
+    font-size: 20px;
+    line-height: 1.6;
+    margin: 20px 0;
+    color: #333;
+}
+
+#level {
+    display: inline-block;
+    background: linear-gradient(90deg, #6948ef, #5337df);
+    color: white;
+    padding: 12px 35px;
+    border-radius: 40px;
+    font-weight: bold;
+    margin-top: 10px;
+    font-size: 17px;
+}
+
+#boxes {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 35px 0 20px;
+    flex-wrap: wrap;
+}
+
+.box {
+    width: 70px;
+    height: 75px;
+    border: 2px solid #6044e8;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 34px;
+    font-weight: bold;
+    background: white;
+}
+
+.box.blue {
+    background: #3478ea;
+    border-color: #3478ea;
+    color: white;
+}
+
+#blueMessage {
+    display: none;
+    max-width: 650px;
+    margin: 15px auto 25px;
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid #a9caff;
+    background: #f0f6ff;
+    color: #1e58b7;
+    font-size: 17px;
+}
+
+#letterBank {
+    max-width: 780px;
+    margin: auto;
+    background: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 18px;
+    padding: 25px;
+
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+.letter {
+    width: 65px;
+    height: 65px;
+    border-radius: 11px;
+    border: 1px solid #ddd;
+    background: white;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.09);
+    transition: 0.15s;
+}
+
+.letter:hover {
+    transform: translateY(-3px);
+}
+
+.letter.carried {
+    background: #3478ea;
+    color: white;
+    border-color: #3478ea;
+}
+
+.letter.used {
+    opacity: 0.25;
+    transform: scale(0.9);
+}
+
+.buttons {
+    margin-top: 28px;
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    flex-wrap: wrap;
+}
+
+#submit {
+    border: none;
+    border-radius: 11px;
+    padding: 16px 40px;
+    min-width: 230px;
+    background: linear-gradient(90deg, #6847ef, #5335df);
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#clear {
+    border: 1px solid #777;
+    border-radius: 11px;
+    padding: 16px 35px;
+    min-width: 140px;
+    background: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#message {
+    min-height: 35px;
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.good {
+    color: #19844b;
+}
+
+.bad {
+    color: #d43b3b;
+}
+
+.help {
+    margin-top: 25px;
+    background: #f8f5ff;
+    border: 1px solid #d7cbff;
+    border-radius: 16px;
+    padding: 25px 30px;
+    text-align: left;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 25px;
+}
+
+.help h3 {
+    margin-top: 0;
+    color: #4b34c9;
+}
+
+.help p {
+    margin: 8px 0;
+    font-size: 16px;
+}
+
+#restart {
+    border: none;
+    border-radius: 10px;
+    background: #6042df;
+    color: white;
+    padding: 14px 20px;
+    font-weight: bold;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+@media (max-width: 650px) {
+
+    .game {
+        padding: 30px 15px;
+    }
+
+    h1 {
+        font-size: 38px;
+    }
+
+    .instructions {
+        font-size: 17px;
+    }
+
+    .box {
+        width: 48px;
+        height: 55px;
+        font-size: 25px;
+    }
+
+    .letter {
+        width: 52px;
+        height: 52px;
+    }
+
+    .help {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #restart {
+        width: 100%;
+    }
+}
+
+</style>
 </head>
 
 <body>
 
-<div class="game-card">
+<div class="game">
 
     <h1>✦ WORD LADDER ✦</h1>
 
     <p class="instructions">
-        Find the hidden word using the letters below.<br>
-        Each new word keeps all the letters from the word before it!
+        Find the hidden word using the scrambled letters below.<br>
+        Every new word must keep all the letters from the word before it!
     </p>
 
-    <div id="level-display"></div>
+    <div id="level"></div>
 
-    <div id="word-boxes"></div>
+    <div id="boxes"></div>
 
-    <div id="locked-message">
-        🔒 <strong>Blue letters</strong> are carried over from the previous word!
+    <div id="blueMessage">
+        🔒 <strong>Blue letters</strong> came from the previous word and must all be used again!
     </div>
 
-    <div id="letter-bank"></div>
+    <div id="letterBank"></div>
 
     <div class="buttons">
 
-        <button id="submit-button">
+        <button id="submit">
             SUBMIT WORD
         </button>
 
-        <button id="clear-button">
+        <button id="clear">
             CLEAR
         </button>
 
@@ -44,23 +290,20 @@
 
     <div id="message"></div>
 
-    <div class="how-to-play">
+    <div class="help">
 
         <div>
             <h3>💡 HOW TO PLAY:</h3>
 
-            <p>• Click the letters to build the hidden word.</p>
-
-            <p>• Blue letters came from the word before it.</p>
-
-            <p>• Every blue letter must be used again.</p>
-
-            <p>• One of the new letters will help make the next word.</p>
-
-            <p>• The other new letters are there to trick you!</p>
+            <p>• Click letters to build the hidden word.</p>
+            <p>• The letters are scrambled every round.</p>
+            <p>• Blue letters are carried over from the last word.</p>
+            <p>• You must use every blue letter.</p>
+            <p>• Three new letters are added each round.</p>
+            <p>• Only one of those new letters belongs in the next word.</p>
         </div>
 
-        <button id="restart-button">
+        <button id="restart">
             ↻ RESTART GAME
         </button>
 
@@ -68,7 +311,752 @@
 
 </div>
 
-<script src="script.js"></script>
+
+<script>
+
+/*
+=================================
+WORDS USED IN THE GAME
+=================================
+
+ATE
+RATE
+IRATE
+TIRADE
+TIRADES
+DISASTER
+
+Each word contains every letter
+from the previous word plus one.
+*/
+
+const levels = [
+
+    {
+        word: "ATE",
+
+        /*
+        Level 1 has 6 possible letters.
+        */
+        bank: ["A", "T", "E", "B", "C", "G"]
+    },
+
+    {
+        word: "RATE",
+
+        /*
+        Previous letters:
+        A T E
+
+        New choices:
+        R H L
+        */
+        extras: ["R", "H", "L"]
+    },
+
+    {
+        word: "IRATE",
+
+        /*
+        Previous letters:
+        R A T E
+
+        New choices:
+        I O N
+        */
+        extras: ["I", "O", "N"]
+    },
+
+    {
+        word: "TIRADE",
+
+        /*
+        Previous letters:
+        I R A T E
+
+        New choices:
+        D M P
+        */
+        extras: ["D", "M", "P"]
+    },
+
+    {
+        word: "TIRADES",
+
+        /*
+        Previous letters:
+        T I R A D E
+
+        New choices:
+        S C G
+        */
+        extras: ["S", "C", "G"]
+    },
+
+    {
+        word: "DISASTER",
+
+        /*
+        Previous letters:
+        T I R A D E S
+
+        New choices:
+        S O L
+        */
+        extras: ["S", "O", "L"]
+    }
+
+];
+
+
+let currentLevel = 0;
+
+let selected = [];
+
+
+const levelText =
+    document.getElementById("level");
+
+const boxes =
+    document.getElementById("boxes");
+
+const letterBank =
+    document.getElementById("letterBank");
+
+const blueMessage =
+    document.getElementById("blueMessage");
+
+const message =
+    document.getElementById("message");
+
+const submitButton =
+    document.getElementById("submit");
+
+const clearButton =
+    document.getElementById("clear");
+
+const restartButton =
+    document.getElementById("restart");
+
+
+/*
+=================================
+SCRAMBLE FUNCTION
+=================================
+*/
+
+function shuffle(array) {
+
+    let copy = [...array];
+
+    for (let i = copy.length - 1; i > 0; i--) {
+
+        let random =
+            Math.floor(Math.random() * (i + 1));
+
+        let temp = copy[i];
+
+        copy[i] = copy[random];
+
+        copy[random] = temp;
+    }
+
+    return copy;
+}
+
+
+/*
+=================================
+CREATE THE LETTER BANK
+=================================
+*/
+
+function makeBank() {
+
+    /*
+    First level:
+    no carried letters yet.
+    */
+
+    if (currentLevel === 0) {
+
+        return shuffle(
+
+            levels[0].bank.map(
+                (letter, index) => ({
+                    letter: letter,
+                    carried: false,
+                    id: "first-" + index
+                })
+            )
+
+        );
+    }
+
+
+    /*
+    Get every letter from
+    the previous correct word.
+    */
+
+    const previousWord =
+        levels[currentLevel - 1].word;
+
+
+    const carriedLetters =
+        previousWord
+            .split("")
+            .map(
+                (letter, index) => ({
+
+                    letter: letter,
+
+                    carried: true,
+
+                    id: "old-" + index
+
+                })
+            );
+
+
+    /*
+    Add 3 new choices.
+    */
+
+    const extras =
+        levels[currentLevel]
+            .extras
+            .map(
+                (letter, index) => ({
+
+                    letter: letter,
+
+                    carried: false,
+
+                    id: "new-" + index
+
+                })
+            );
+
+
+    /*
+    Mix all of them together.
+    */
+
+    return shuffle([
+        ...carriedLetters,
+        ...extras
+    ]);
+}
+
+
+/*
+=================================
+LOAD LEVEL
+=================================
+*/
+
+function loadLevel() {
+
+    selected = [];
+
+    boxes.innerHTML = "";
+
+    letterBank.innerHTML = "";
+
+    message.textContent = "";
+
+    message.className = "";
+
+
+    const level =
+        levels[currentLevel];
+
+
+    levelText.textContent =
+        "LEVEL " +
+        (currentLevel + 1) +
+        " OF " +
+        levels.length +
+        "  •  " +
+        level.word.length +
+        " LETTER WORD";
+
+
+    /*
+    Only show blue explanation
+    after the first level.
+    */
+
+    if (currentLevel === 0) {
+
+        blueMessage.style.display =
+            "none";
+
+    } else {
+
+        blueMessage.style.display =
+            "block";
+    }
+
+
+    /*
+    Make answer boxes.
+    */
+
+    for (
+        let i = 0;
+        i < level.word.length;
+        i++
+    ) {
+
+        const box =
+            document.createElement("div");
+
+        box.className = "box";
+
+        boxes.appendChild(box);
+    }
+
+
+    /*
+    Build scrambled letter bank.
+    */
+
+    const bank =
+        makeBank();
+
+
+    bank.forEach(
+        item => {
+
+            const button =
+                document.createElement("button");
+
+
+            button.className =
+                "letter";
+
+
+            if (item.carried) {
+
+                button.classList.add(
+                    "carried"
+                );
+            }
+
+
+            button.textContent =
+                item.letter;
+
+
+            button.addEventListener(
+                "click",
+                function () {
+
+                    chooseLetter(
+                        item,
+                        button
+                    );
+
+                }
+            );
+
+
+            letterBank.appendChild(
+                button
+            );
+
+        }
+    );
+}
+
+
+/*
+=================================
+SELECT LETTER
+=================================
+*/
+
+function chooseLetter(
+    item,
+    button
+) {
+
+    const wordLength =
+        levels[currentLevel]
+            .word
+            .length;
+
+
+    if (
+        selected.length >=
+        wordLength
+    ) {
+
+        return;
+    }
+
+
+    selected.push({
+
+        letter:
+            item.letter,
+
+        carried:
+            item.carried,
+
+        button:
+            button
+
+    });
+
+
+    button.disabled = true;
+
+    button.classList.add("used");
+
+
+    updateBoxes();
+}
+
+
+/*
+=================================
+SHOW SELECTED LETTERS
+=================================
+*/
+
+function updateBoxes() {
+
+    const allBoxes =
+        document.querySelectorAll(
+            ".box"
+        );
+
+
+    allBoxes.forEach(
+        (box, index) => {
+
+            box.textContent = "";
+
+            box.classList.remove(
+                "blue"
+            );
+
+
+            if (selected[index]) {
+
+                box.textContent =
+                    selected[index].letter;
+
+
+                /*
+                Blue carried letters
+                stay blue when placed
+                in the answer.
+                */
+
+                if (
+                    selected[index]
+                        .carried
+                ) {
+
+                    box.classList.add(
+                        "blue"
+                    );
+                }
+            }
+
+        }
+    );
+}
+
+
+/*
+=================================
+CLEAR GUESS
+=================================
+*/
+
+function clearGuess() {
+
+    selected.forEach(
+        item => {
+
+            item.button.disabled =
+                false;
+
+            item.button.classList.remove(
+                "used"
+            );
+
+        }
+    );
+
+
+    selected = [];
+
+
+    updateBoxes();
+
+
+    message.textContent = "";
+
+    message.className = "";
+}
+
+
+/*
+=================================
+CHECK IF ALL BLUE LETTERS USED
+=================================
+*/
+
+function usedEveryBlueLetter() {
+
+    if (currentLevel === 0) {
+
+        return true;
+    }
+
+
+    /*
+    Previous word letters.
+    Sort them so order doesn't matter.
+    */
+
+    const required =
+        levels[currentLevel - 1]
+            .word
+            .split("")
+            .sort()
+            .join("");
+
+
+    /*
+    Find only selected blue letters.
+    */
+
+    const used =
+        selected
+            .filter(
+                item =>
+                    item.carried
+            )
+            .map(
+                item =>
+                    item.letter
+            )
+            .sort()
+            .join("");
+
+
+    return required === used;
+}
+
+
+/*
+=================================
+SUBMIT WORD
+=================================
+*/
+
+function checkAnswer() {
+
+    const answerWord =
+        levels[currentLevel]
+            .word;
+
+
+    /*
+    Make sure all boxes filled.
+    */
+
+    if (
+        selected.length !==
+        answerWord.length
+    ) {
+
+        message.textContent =
+            "Fill in every box first!";
+
+        message.className =
+            "bad";
+
+        return;
+    }
+
+
+    /*
+    Require every blue letter.
+    */
+
+    if (!usedEveryBlueLetter()) {
+
+        message.textContent =
+            "You must use every blue letter!";
+
+        message.className =
+            "bad";
+
+        return;
+    }
+
+
+    /*
+    Turn selected letters
+    into a word.
+    */
+
+    const guess =
+        selected
+            .map(
+                item =>
+                    item.letter
+            )
+            .join("");
+
+
+    /*
+    Correct answer.
+    */
+
+    if (guess === answerWord) {
+
+        message.textContent =
+            "Correct! 🎉";
+
+        message.className =
+            "good";
+
+
+        setTimeout(
+            function () {
+
+                currentLevel++;
+
+
+                if (
+                    currentLevel <
+                    levels.length
+                ) {
+
+                    loadLevel();
+
+                } else {
+
+                    finishGame();
+                }
+
+            },
+            900
+        );
+
+    }
+
+    /*
+    Wrong answer.
+    */
+
+    else {
+
+        message.textContent =
+            "Not quite! Rearrange the letters and try again.";
+
+        message.className =
+            "bad";
+    }
+}
+
+
+/*
+=================================
+FINISH GAME
+=================================
+*/
+
+function finishGame() {
+
+    boxes.innerHTML = "";
+
+    letterBank.innerHTML = "";
+
+    blueMessage.style.display =
+        "none";
+
+
+    levelText.textContent =
+        "YOU COMPLETED THE WORD LADDER! 🏆";
+
+
+    message.textContent =
+        "ATE → RATE → IRATE → TIRADE → TIRADES → DISASTER 🎉";
+
+
+    message.className =
+        "good";
+
+
+    submitButton.style.display =
+        "none";
+
+    clearButton.style.display =
+        "none";
+}
+
+
+/*
+=================================
+RESTART GAME
+=================================
+*/
+
+function restartGame() {
+
+    currentLevel = 0;
+
+    submitButton.style.display =
+        "inline-block";
+
+    clearButton.style.display =
+        "inline-block";
+
+    loadLevel();
+}
+
+
+/*
+=================================
+BUTTONS
+=================================
+*/
+
+submitButton.addEventListener(
+    "click",
+    checkAnswer
+);
+
+clearButton.addEventListener(
+    "click",
+    clearGuess
+);
+
+restartButton.addEventListener(
+    "click",
+    restartGame
+);
+
+
+/*
+=================================
+START GAME
+=================================
+*/
+
+loadLevel();
+
+</script>
 
 </body>
 </html>
