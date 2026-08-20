@@ -3,34 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Word Ladder Game</title>
+
+    <title>Word Ladder</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <div class="game-container">
-        <h1>Word Ladder</h1>
+<div class="game-card">
 
-        <p class="instructions">
-            Find the hidden word using the letters below.
-            Each new word keeps the letters from the word before it!
-        </p>
+    <h1>✦ WORD LADDER ✦</h1>
 
-        <div id="level">
-            Level 1
-        </div>
+    <p class="instructions">
+        Find the hidden word using the letters below.<br>
+        Each new word keeps all the letters from the word before it!
+    </p>
 
-        <div id="word-boxes"></div>
+    <div id="level-display"></div>
 
-        <div id="letter-bank"></div>
+    <div id="word-boxes"></div>
 
-        <button id="clear-button">Clear</button>
-
-        <p id="message"></p>
+    <div id="locked-message">
+        🔒 <strong>Blue letters</strong> are carried over from the previous word!
     </div>
 
-    <script src="script.js"></script>
+    <div id="letter-bank"></div>
+
+    <div class="buttons">
+
+        <button id="submit-button">
+            SUBMIT WORD
+        </button>
+
+        <button id="clear-button">
+            CLEAR
+        </button>
+
+    </div>
+
+    <div id="message"></div>
+
+    <div class="how-to-play">
+
+        <div>
+            <h3>💡 HOW TO PLAY:</h3>
+
+            <p>• Click the letters to build the hidden word.</p>
+
+            <p>• Blue letters came from the word before it.</p>
+
+            <p>• Every blue letter must be used again.</p>
+
+            <p>• One of the new letters will help make the next word.</p>
+
+            <p>• The other new letters are there to trick you!</p>
+        </div>
+
+        <button id="restart-button">
+            ↻ RESTART GAME
+        </button>
+
+    </div>
+
+</div>
+
+<script src="script.js"></script>
 
 </body>
 </html>
